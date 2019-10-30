@@ -41,11 +41,13 @@ model.add(tf.keras.layers.Conv2D(32,
                                  activation='relu'))
 model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))
 model.add(tf.keras.layers.Flatten())
-model.add(tf.keras.layers.Dense(config.dense_layer_size, activation='relu'))
+### Change1 Use elu at activation instead of relu and add one more layer and update compiler
+model.add(tf.keras.layers.Dense(config.dense_layer_size, activation='elu'))
+model.add(tf.keras.layers.Dense(config.dense_layer_size, activation='elu'))
 model.add(tf.keras.layers.Dense(num_classes, activation='softmax'))
-
-model.compile(loss='categorical_crossentropy', optimizer='adam',
-              metrics=['accuracy'], weighted_metrics=['accuracy'])
+#model.compile(loss='categorical_crossentropy', optimizer='adam',
+#              metrics=['accuracy'], weighted_metrics=['accuracy'])
+model.compile(loss='categorical_crossentropy', optimizer=tf.keras.optimizers.SGD(lr=0.0001), metrics=['accuracy'])
 
 model.fit(X_train, y_train, validation_data=(X_test, y_test),
           epochs=config.epochs,
