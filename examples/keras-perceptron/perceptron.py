@@ -10,6 +10,13 @@ config = run.config
 img_width = X_train.shape[1]
 img_height = X_train.shape[2]
 
+### Change1
+### Adding this section finetune the model and give more accurate outputs
+#normalize data
+X_train = X_train.astype('float32') / 255
+X_test = X_test.astype('float32') / 255
+
+
 # one hot encode outputs
 y_train = tf.keras.utils.to_categorical(y_train)
 y_test = tf.keras.utils.to_categorical(y_test)
